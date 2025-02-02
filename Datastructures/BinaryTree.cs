@@ -16,8 +16,6 @@ public class BinaryTree<T> : IEnumerable<T>
     public int Count => _count;
     public int Height => CalculateHeightRecursive(_root);
 
-
-    #region Public Methods
     public void Insert(T value)
     {
         if (_root is null)
@@ -101,13 +99,30 @@ public class BinaryTree<T> : IEnumerable<T>
         _root = null;
     }
 
-    public virtual T? FindMin() => _count != 0 ? this.Min() : default;
-    public virtual T? FindMax() => _count != 0 ? this.Max() : default;
-    public T? Find(Func<T, bool> predicate) => this.FirstOrDefault(predicate);
-    public IEnumerable<T> FindAll(Func<T, bool> predicate) => this.Where(predicate);
-    #endregion
+    public void PrintTree()
+    {
+        if (_root is null)
+        {
+            Console.WriteLine("Tree is empty.");
+            return;
+        }
 
-    #region Help Methods
+        PrintSubtree(_root, "", true);
+    }
+    private void PrintSubtree(Node? node, string indent, bool isLast)
+    {
+        if (node == null)
+            return;
+
+        Console.Write(indent);
+        Console.Write(isLast ? "└── " : "├── ");
+        Console.WriteLine(node.Value);
+
+        indent += isLast ? "    " : "│   ";
+
+        PrintSubtree(node.Left, indent, node.Right == null);
+        PrintSubtree(node.Right, indent, true);
+    }
     private int CalculateHeightRecursive(Node? node)
     {
         if (node is null)
@@ -118,7 +133,6 @@ public class BinaryTree<T> : IEnumerable<T>
 
         return 1 + Math.Max(leftHeight, rightHeight);
     }
-    #endregion
 
     #region Traversal-IEnumerables //Traversals as IEnumerators for a nice foreach experiance.
     /// <summary>
@@ -212,33 +226,6 @@ public class BinaryTree<T> : IEnumerable<T>
             yield return rightNode;
 
         yield return node.Value;
-    }
-    #endregion
-
-    #region Print Methods to visualize the Tree 
-    public void PrintTree()
-    {
-        if (_root is null)
-        {
-            Console.WriteLine("Tree is empty.");
-            return;
-        }
-
-        PrintSubtree(_root, "", true);
-    }
-    private void PrintSubtree(Node? node, string indent, bool isLast)
-    {
-        if (node == null)
-            return;
-
-        Console.Write(indent);
-        Console.Write(isLast ? "└── " : "├── ");
-        Console.WriteLine(node.Value);
-
-        indent += isLast ? "    " : "│   ";
-
-        PrintSubtree(node.Left, indent, node.Right == null);
-        PrintSubtree(node.Right, indent, true);
     }
     #endregion
 

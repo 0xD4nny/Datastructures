@@ -6,9 +6,8 @@ public class CustomLinkedList<T> : IEnumerable<T> where T : IComparable<T>
 {
     private class Node(T value)
     {
-        public T Value { get; set; } = value;
-        public Node? Next { get; set; }
-        public Node? Previous { get; set; }
+        public T Value = value;
+        public Node? Next, Previous;
     }
 
     private int _count;
@@ -21,10 +20,9 @@ public class CustomLinkedList<T> : IEnumerable<T> where T : IComparable<T>
         get
         {
             Node? current = _head;
-            while (current is not null && current.Next is not null)
-            {
+            while (current is not null && current.Next is not null)            
                 current = current.Next;
-            }
+            
             return current!.Value;
         }
     }

@@ -31,8 +31,8 @@ class Program
         {
             Console.WriteLine("_____Binary Tree_____");
             Console.WriteLine($"Count: {binaryTree.Count}");
-            Console.WriteLine($"Max value: {binaryTree.FindMax()}");
-            Console.WriteLine($"Min value: {binaryTree.FindMin()}");
+            Console.WriteLine($"Max value: {binaryTree.Max()}");
+            Console.WriteLine($"Min value: {binaryTree.Min()}");
             Console.WriteLine($"Calculate Hight {binaryTree.Height}");
             binaryTree.PrintTree();
 
@@ -97,7 +97,7 @@ class Program
             Console.WriteLine("Press any key to remove next.");
             Console.ReadKey();
             Console.Clear();
-            binarySearchTree.Remove((_numbers[i], i));
+            Console.WriteLine($"Removed node: {binarySearchTree.RemoveMin().Item1}");
         }
     }
     private static void RedBlackTreeTest()
@@ -135,7 +135,7 @@ class Program
             Console.WriteLine("\nPress any key to remove next.");
             Console.ReadKey();
             Console.Clear();
-            redBlackTree.RemoveMin();
+            Console.WriteLine($"Removed node: {redBlackTree.RemoveMin().Value.Key}");
         }
     }
     #endregion

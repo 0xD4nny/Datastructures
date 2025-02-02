@@ -24,6 +24,17 @@ public class BinarySearchTree<T> : BinaryTree<T> where T : IComparable<T>
     {
         _root = RemoveRecursive(_root, value);
     }
+    public T? RemoveMin()
+    {
+        if (_root == null) return default!;
+
+        Node min = GetMinNode(_root);
+
+        _root = RemoveRecursive(_root, min.Value);
+        _count--;
+
+        return min.Value;
+    }
     private Node? RemoveRecursive(Node? node, T value)
     {
         if (node is null)
@@ -52,7 +63,7 @@ public class BinarySearchTree<T> : BinaryTree<T> where T : IComparable<T>
         return node;
     }
 
-    public override T? FindMin()
+    public T? FindMin()
     {
         if (_root is null)
             return default;
@@ -66,7 +77,7 @@ public class BinarySearchTree<T> : BinaryTree<T> where T : IComparable<T>
 
         return node;
     }
-    public override T? FindMax()
+    public T? FindMax()
     {
         if (_root is null)
             return default;
@@ -79,16 +90,6 @@ public class BinarySearchTree<T> : BinaryTree<T> where T : IComparable<T>
             node = node.Right;
 
         return node;
-    }
-    private Node? FindRecursive(Node? node, T value)
-    {
-        if (node is null || node.Value.Equals(value))
-            return node;
-
-        if (value.CompareTo(node.Value) < 0)
-            return FindRecursive(node.Left, value);
-
-        return FindRecursive(node.Right, value);
     }
 
 }
