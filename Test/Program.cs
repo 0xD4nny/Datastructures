@@ -1,5 +1,4 @@
 ﻿using Datastructures;
-using System.Diagnostics;
 
 namespace Test;
 class Program
