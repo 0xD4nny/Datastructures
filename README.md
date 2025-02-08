@@ -9,17 +9,17 @@
 <h1>Implemented Data Structures</h1>
 
 <h3>List Structures</h3>
-<div class="emoji"><strong>📜CustomLinkedList.cs</strong> – A linked list with efficient insert and delete operations.</div>
-<div class="emoji"><strong>📜CustomList.cs</strong> – A dynamically resizing list optimized for memory efficiency and iteration safety.</div>
+<div class="emoji"><strong>📜 CustomLinkedList.cs</strong> – A linked list with efficient insert and delete operations.</div>
+<div class="emoji"><strong>📜 CustomList.cs</strong> – A dynamically resizing list optimized for memory efficiency and iteration safety.</div>
 
 
 <h3>Tree Structures</h3>
-<div class="emoji"><strong>🌳BinaryTree.cs</strong> – A foundational hierarchical structure.</div>
-<div class="emoji"><strong>🌳BinarySearchTree.cs</strong> – A BST optimized for fast searching and sorting.</div>
-<div class="emoji"><strong>🌳RedBlackTree.cs</strong> – A self-balancing BST ensuring O(log n) efficiency.</div>
+<div class="emoji"><strong>🌳 BinaryTree.cs</strong> – A foundational hierarchical structure.</div>
+<div class="emoji"><strong>🌳 BinarySearchTree.cs</strong> – A BST optimized for fast searching and sorting.</div>
+<div class="emoji"><strong>🌳 RedBlackTree.cs</strong> – A self-balancing BST ensuring O(log n) efficiency.</div>
 
 <h3>Additional Features</h3>
-<div class="emoji"><strong>⚠️CustomExceptions.cs</strong> – Structured error handling for better debugging.</div>
+<div class="emoji"><strong>⚠️ CustomExceptions.cs</strong> – Structured error handling for better debugging.</div>
 
 <h2>Key Takeaways</h2>
 <div class="emoji">✅ Memory allocation and its impact on performance.</div>
