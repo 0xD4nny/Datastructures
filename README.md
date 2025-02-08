@@ -1,5 +1,3 @@
-﻿<img src="image.png" alt="Data Structures Overview" style="max-width:100%; height:auto;">
-
 <h2>Overview</h2>
 <p>This project is a collection of custom data structures implemented in C#. It was originally created as a way to deepen my understanding of core programming concepts, particularly memory management, data organization, and algorithm efficiency.</p>
 
@@ -50,3 +48,5 @@
 
 <hr>
 <p>Hopefully, this project will serve as a useful learning resource for those interested in data structures! 🚀</p>
+
+﻿<img src="https://github.com/0xD4nny/Datastructures/releases/download/v1.0.0/Datastructures.png" style="max-width:100%; height:auto;">
