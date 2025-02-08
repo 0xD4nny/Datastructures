@@ -49,4 +49,4 @@
 <hr>
 <p>Hopefully, this project will serve as a useful learning resource for those interested in data structures! 🚀</p>
 
-﻿<img src="https://github.com/0xD4nny/Datastructures/releases/download/v1.0.0/Datastructures.png" style="max-width:100%; height:auto;">
+﻿<img src="https://github.com/0xD4nny/Datastructures/releases/download/v1.0.0/DatastructuresNew.png" style="max-width:100%; height:auto;">
