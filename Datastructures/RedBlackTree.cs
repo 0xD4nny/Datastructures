@@ -2,7 +2,14 @@
 
 namespace Datastructures;
 
-public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>> where TKey : IComparable<TKey>
+/// <summary>
+/// This structure is optimized for handling fewer than 100,000 objects.<br />
+/// If you expect to store more, consider using a different data structure.<br />
+/// The reason is that this implementation relies on efficient recursion,<br />
+/// which is safe for up to 20 recursive stack frames.<br />
+/// However, I cannot guarantee that deeper recursion will always be avoided.<br />
+/// </summary>
+public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>> where TKey : struct, IComparable<TKey>
 {
     private class Node(TKey key, TValue value, bool isRed)
     {
@@ -18,20 +25,39 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
     public int Count => _count;
     public int Height => CalculateHeight(_root);
 
+    public TValue this[TKey key]
+    {
+        get
+        {
+            Node? node = FindNode(key);
+
+            if (node == null)
+                throw new KeyNotFoundException($"Key {key} not found in RedBlackTree.");
+
+            return node.Value;
+        }
+        set
+        {
+            Node? node = FindNode(key);
+
+            if (node == null)
+                Add(key, value);
+            else
+                node.Value = value;
+        }
+    }
+
 
     #region Public Methods
-    public void Insert(TKey key, TValue value)
+    public void Add(TKey key, TValue value)
     {
         _root = InsertRecursive(_root, key, value);
         if (_root != null)
             _root.IsRed = false;
     }
-
     public void Remove(TKey key)
     {
         if (_root == null) return;
-
-        if (!Contains(key)) return;
 
         _root = RemoveRecursive(_root, key);
 
@@ -55,7 +81,6 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
         return KeyValuePair.Create(min.Key, min.Value);
     }
 
-
     public bool Contains(TKey key)
     {
         Node? current = _root;
@@ -63,17 +88,11 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
         {
             int cmp = key.CompareTo(current.Key);
             if (cmp < 0)
-            {
                 current = current.Left;
-            }
             else if (cmp > 0)
-            {
                 current = current.Right;
-            }
             else
-            {
                 return true;
-            }
         }
         return false;
     }
@@ -90,6 +109,21 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
     #endregion
 
     #region Help Methods
+    private Node? FindNode(TKey key)
+    {
+        Node? current = _root;
+        while (current != null)
+        {
+            int cmp = key.CompareTo(current.Key);
+            if (cmp < 0)
+                current = current.Left;
+            else if (cmp > 0)
+                current = current.Right;
+            else
+                return current;
+        }
+        return null;
+    }
     private Node InsertRecursive(Node? node, TKey key, TValue value)
     {
         if (node == null)
@@ -146,16 +180,6 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
 
         return Balance(node);
     }
-    private int CalculateHeight(Node? node)
-    {
-        if (node is null)
-            return 0;
-
-        int leftHeight = CalculateHeight(node.Left);
-        int rightHeight = CalculateHeight(node.Right);
-
-        return 1 + Math.Max(leftHeight, rightHeight);
-    }
     private Node GetMinNode(Node node)
     {
         while (node.Left != null)
@@ -168,7 +192,16 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
             node = node.Right;
         return node;
     }
+    private int CalculateHeight(Node? node)
+    {
+        if (node is null)
+            return 0;
 
+        int leftHeight = CalculateHeight(node.Left);
+        int rightHeight = CalculateHeight(node.Right);
+
+        return 1 + Math.Max(leftHeight, rightHeight);
+    }
     #endregion
 
     #region Tree balance
@@ -365,5 +398,40 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
         PrintSubtree(node.Right, indent, true);
     }
     #endregion
+
+    public bool IsValidRedBlackTree()
+    {
+        if (_root == null) return true;
+
+        if (_root.IsRed) return false;
+
+        return ValidateNode(_root, 0, out int _);
+    }
+    private bool ValidateNode(Node? node, int blackCount, out int pathBlackCount)
+    {
+        if (node == null)
+        {
+            pathBlackCount = blackCount;
+            return true;
+        }
+
+        if (node.IsRed)
+        {
+            pathBlackCount = 0;
+            if ((node.Left?.IsRed ?? false) || (node.Right?.IsRed ?? false))
+                return false;
+        }
+        else
+        {
+            blackCount++;
+        }
+
+        bool leftValid = ValidateNode(node.Left, blackCount, out int leftBlack);
+        bool rightValid = ValidateNode(node.Right, blackCount, out int rightBlack);
+
+        pathBlackCount = leftBlack;
+        return leftValid && rightValid && leftBlack == rightBlack;
+    }
+
 
 }

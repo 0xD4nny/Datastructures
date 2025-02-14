@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datastructures", "Datastructures\Datastructures.csproj", "{553C0C56-3276-4C5C-94DF-DD198A0ABB84}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{0E3FAD3E-B8AF-4541-8A0D-D92E6FF0C1BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RBTBenchmark", "RBTBenchmark\RBTBenchmark.csproj", "{0DB86BBE-4A05-4D4E-B0F8-BAE487E13438}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0E3FAD3E-B8AF-4541-8A0D-D92E6FF0C1BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E3FAD3E-B8AF-4541-8A0D-D92E6FF0C1BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E3FAD3E-B8AF-4541-8A0D-D92E6FF0C1BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DB86BBE-4A05-4D4E-B0F8-BAE487E13438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DB86BBE-4A05-4D4E-B0F8-BAE487E13438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DB86BBE-4A05-4D4E-B0F8-BAE487E13438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DB86BBE-4A05-4D4E-B0F8-BAE487E13438}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

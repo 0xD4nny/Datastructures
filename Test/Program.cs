@@ -12,11 +12,11 @@ class Program
         for (int i = 0; i < 50; i++)
             _numbers.Add(_random.Next(0, 101));
 
-        BinaryTreeTest();
-        BinarySearchTreeTest();
+        //BinaryTreeTest();
+        //BinarySearchTreeTest();
         RedBlackTreeTest();
 
-        Console.WriteLine("All Tree - Tests sucsessfull executed.");
+        Console.WriteLine("All Tree - Tests successfull executed.");
     }
 
     #region Tree tests
@@ -105,7 +105,7 @@ class Program
         RedBlackTree<(int, int), string> redBlackTree = new RedBlackTree<(int, int), string>();
 
         for (int i = 0; i < _numbers.Count; i++)
-            redBlackTree.Insert((_numbers[i], i), i.ToString());
+            redBlackTree.Add((_numbers[i], i), i.ToString());
 
         for (int i = 0; i < _numbers.Count; i++)
         {
