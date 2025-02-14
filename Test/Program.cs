@@ -9,7 +9,7 @@ class Program
 
     static void Main()
     {
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 31; i++)
             _numbers.Add(_random.Next(0, 101));
 
         //BinaryTreeTest();
@@ -102,37 +102,45 @@ class Program
     }
     private static void RedBlackTreeTest()
     {
-        RedBlackTree<(int, int), string> redBlackTree = new RedBlackTree<(int, int), string>();
+        RedBlackTree<int, int> redBlackTree = new RedBlackTree<int, int>();
 
         for (int i = 0; i < _numbers.Count; i++)
-            redBlackTree.Add((_numbers[i], i), i.ToString());
+            redBlackTree.Add(i, i);
 
         for (int i = 0; i < _numbers.Count; i++)
         {
             Console.WriteLine("_____Red Black Tree_____");
-            Console.WriteLine($"Count: {redBlackTree.Count}");
-            Console.WriteLine($"Max value: {redBlackTree.Max()}");
-            Console.WriteLine($"Min value: {redBlackTree.Min()}");
-            Console.WriteLine($"Calculate Hight {redBlackTree.Height}");
+            Console.WriteLine($"Count: {redBlackTree.Count, 8}");
+            Console.WriteLine($"Hight: {redBlackTree.Height, 8}");
+            Console.WriteLine($"MaxValue: {redBlackTree.Max().Value, 5}");
+            Console.WriteLine($"MinValue: {redBlackTree.Min().Value, 5}");
+            Console.WriteLine();
             redBlackTree.PrintTree();
 
             Console.Write("\nLevelOrderTraversal:\t");
-            foreach (KeyValuePair<(int, int), string> kvp in redBlackTree)
+            foreach (var kvp in redBlackTree)
                 Console.Write(kvp.Value + " ");
+
+            Console.WriteLine();
 
             Console.Write("\nPreOrderTraversal:\t");
-            foreach (KeyValuePair<(int, int), string> kvp in redBlackTree.PreOrderTraversal())
+            foreach (var kvp in redBlackTree.PreOrder())
                 Console.Write(kvp.Value + " ");
+
+            Console.WriteLine();
 
             Console.Write("\nInOrderTraversal:\t");
-            foreach (KeyValuePair<(int, int), string> kvp in redBlackTree.InOrderTraversal())
+            foreach (var kvp in redBlackTree.InOrderTraversal())
                 Console.Write(kvp.Value + " ");
+
+            Console.WriteLine();
 
             Console.Write("\nPostOrderTraversal:\t");
-            foreach (KeyValuePair<(int, int), string> kvp in redBlackTree.PostOrderTraversal())
+            foreach (var kvp in redBlackTree.PostOrderTraversal())
                 Console.Write(kvp.Value + " ");
 
-            Console.WriteLine("\nPress any key to remove next.");
+
+            Console.WriteLine("\n\nPress any key to remove next.");
             Console.ReadKey();
             Console.Clear();
             Console.WriteLine($"Removed node: {redBlackTree.RemoveMin().Value.Key}");

@@ -276,12 +276,12 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
     /// Enumerates nodes level by level: top → bottom, left → right (Breadth-First Search).
     /// This method is the default traversal used in foreach loops.
     /// </summary>
-    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => LevelOrderTraversal().Select(node => new KeyValuePair<TKey, TValue>(node.Key, node.Value)).GetEnumerator();
+    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => LevelOrder().Select(node => new KeyValuePair<TKey, TValue>(node.Key, node.Value)).GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
     }
-    private IEnumerable<KeyValuePair<TKey, TValue>> LevelOrderTraversal()
+    private IEnumerable<KeyValuePair<TKey, TValue>> LevelOrder()
     {
         if (_root is null)
             yield break;
@@ -306,7 +306,7 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
     /// Traverses the tree in pre-order(root → left → right).
     /// Nodes are enumerated starting with the root, then recursively the left and right subtrees.
     /// </summary>
-    public IEnumerable<KeyValuePair<TKey, TValue>> PreOrderTraversal()
+    public IEnumerable<KeyValuePair<TKey, TValue>> PreOrder()
     {
         if (_root is null)
             yield break;
@@ -375,8 +375,6 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
             Console.WriteLine("Tree is empty.");
             return;
         }
-
-        Console.WriteLine($"Count: {_count}\nMax: {GetMaxNode(_root).Key}\nMin: {GetMinNode(_root).Key}\n");
 
         PrintSubtree(_root, "", true);
     }
