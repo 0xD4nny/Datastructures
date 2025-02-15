@@ -1,7 +1,7 @@
-# Custom Data Structures in C
+## Custom Data Structures in <img src="https://img.shields.io/badge/-C%23-239120?style=plastic&logo=csharp&logoColor=black"> <img src="https://img.shields.io/badge/-.NET-512BD4?style=plastic&logo=dotnet&logoColor=black">
 ### Overview
 This project is a collection of custom data structures implemented in C#, created as part of my exploration into memory management, data organization, and algorithm efficiency.
-This project started as an experiment with linked lists and dynamic arrays but quickly grew into a deeper exploration of read/write operations, performance trade-offs, and tree balancing.
+This project started as an experiment with linked lists and fixed size arrays but quickly grew into a deeper exploration of read/write operations, performance trade-offs, and tree balancing.
 As my understanding grew, I implemented more complex structures, including Binary Trees, Binary Search Trees, and a Red-Black Tree (RBT).
 The included diagram illustrates key comparisons and optimizations explored throughout my learning journey.
 
@@ -10,16 +10,16 @@ The included diagram illustrates key comparisons and optimizations explored thro
 # Implemented Data Structures
 
 ## 📃 List Structures
-- [CustomLinkedList.cs](./path/to/CustomLinkedList.cs) – A linked list with efficient insert and delete operations.
-- [CustomList.cs](./path/to/CustomList.cs) – A dynamically resizing list optimized for memory efficiency and iteration safety.
+- [CustomLinkedList.cs](https://github.com/0xD4nny/Datastructures/blob/main/Datastructures/CustomLinkedList.cs) – A linked list with efficient insert and delete operations.
+- [CustomList.cs](https://github.com/0xD4nny/Datastructures/blob/main/Datastructures/CustomList.cs) – A fixed size list optimized for memory efficiency and iteration thread safety.
 
 ## 🌳 Tree Structures
-- [BinaryTree.cs](./path/to/BinaryTree.cs) – A foundational hierarchical structure.
-- [BinarySearchTree.cs](./path/to/BinarySearchTree.cs) – A BST optimized for fast searching and sorting.
-- [RedBlackTree.cs](./path/to/RedBlackTree.cs) – A self-balancing BST ensuring O(log n) efficiency.
+- [BinaryTree.cs](https://github.com/0xD4nny/Datastructures/blob/main/Datastructures/BinaryTree.cs) – A foundational hierarchical structure.
+- [BinarySearchTree.cs](https://github.com/0xD4nny/Datastructures/blob/main/Datastructures/BinarySearchTree.cs) A BST optimized for fast searching and sorting.
+- [RedBlackTree.cs](https://github.com/0xD4nny/Datastructures/blob/main/Datastructures/RedBlackTree.cs) – A self-balancing BST ensuring O(log n) efficiency.
 
 ## ⚠️ Additional Features
-- [CustomException.cs](./path/to/CustomException.cs) – For better error handling.
+- [CustomException.cs](https://github.com/0xD4nny/Datastructures/blob/main/Datastructures/CustomExceptions.cs) – For better error handling.
 
 ## ✅ Key Takeaways
 - Memory allocation and its impact on performance.
@@ -63,52 +63,53 @@ The included diagram illustrates key comparisons and optimizations explored thro
 
 ## Visualization of the RedBlackTree
 - Every tree class includes a `PrintTree()` method for visualizing its structure, primarily for debugging and analysis. 
-- Below is an example of a Red-Black Tree with 31 nodes.
+- Below is an example of a Red-Black Tree with 30 nodes.
 
 ```
 _____Red Black Tree_____
-Count:       31
-Hight:        5
-MaxValue:    30
-MinValue:     0
+Count:       30
+Hight:        6
+MaxValue:    43
+MinValue:    14
 
-└── 15
-    ├── 7
-    │   ├── 3
-    │   │   ├── 1
-    │   │   │   ├── 0
-    │   │   │   └── 2
-    │   │   └── 5
-    │   │       ├── 4
-    │   │       └── 6
-    │   └── 11
-    │       ├── 9
-    │       │   ├── 8
-    │       │   └── 10
-    │       └── 13
-    │           ├── 12
-    │           └── 14
-    └── 23
-        ├── 19
-        │   ├── 17
-        │   │   ├── 16
-        │   │   └── 18
-        │   └── 21
-        │       ├── 20
-        │       └── 22
-        └── 27
-            ├── 25
-            │   ├── 24
-            │   └── 26
-            └── 29
-                ├── 28
-                └── 30
+└── 31(B)
+    ├── 23(R)
+    │   ├── 19(B)
+    │   │   ├── 17(B)
+    │   │   │   ├── 15(R)
+    │   │   │   │   ├── 14(B)
+    │   │   │   │   └── 16(B)
+    │   │   │   └── 18(B)
+    │   │   └── 21(B)
+    │   │       ├── 20(B)
+    │   │       └── 22(B)
+    │   └── 27(B)
+    │       ├── 25(B)
+    │       │   ├── 24(B)
+    │       │   └── 26(B)
+    │       └── 29(B)
+    │           ├── 28(B)
+    │           └── 30(B)
+    └── 39(B)
+        ├── 35(R)
+        │   ├── 33(B)
+        │   │   ├── 32(B)
+        │   │   └── 34(B)
+        │   └── 37(B)
+        │       ├── 36(B)
+        │       └── 38(B)
+        └── 41(B)
+            ├── 40(B)
+            └── 43(B)
+                └── 42(R)
 
-LevelOrderTraversal: 15 7 23 3 11 19 27 1 5 9 13 17 21 25 29 0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30;
-                     
-PreOrderTraversal:   15 7 3 1 0 2 5 4 6 11 9 8 10 13 12 14 23 19 17 16 18 21 20 22 27 25 24 26 29 28 30;
-                     
-InOrderTraversal:    0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30;
-                     
-PostOrderTraversal:  0 2 1 4 6 5 3 8 10 9 12 14 13 11 7 16 18 17 20 22 21 19 24 26 25 28 30 29 27 23 15;
+LevelOrderTraversal: 31 23 39 19 27 35 41 17 21 25 29 33 37 40 43 15 18 20 22 24 26 28 30 32 34 36 38 42 14 16
+
+PreOrderTraversal:   31 23 19 17 15 14 16 18 21 20 22 27 25 24 26 29 28 30 39 35 33 32 34 37 36 38 41 40 43 42
+
+InOrderTraversal:    14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43
+
+PostOrderTraversal:  14 16 15 18 17 20 22 21 19 24 26 25 28 30 29 27 23 32 34 33 36 38 37 35 40 42 43 41 39 31
+
+Press any key to remove next.
 ```
