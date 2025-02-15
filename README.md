@@ -5,7 +5,7 @@ This project started as an experiment with linked lists and dynamic arrays but q
 As my understanding grew, I implemented more complex structures, including Binary Trees, Binary Search Trees, and a Red-Black Tree (RBT).
 The included diagram illustrates key comparisons and optimizations explored throughout my learning journey.
 
-<img src="https://github.com/0xD4nny/Datastructures/releases/download/v1.0.0/DatastructuresNew.png" style="max-width:100%; height:auto;">
+![](https://github.com/0xD4nny/Datastructures/releases/download/v1.0.0/Datastructures.png)
 
 # Implemented Data Structures
 
