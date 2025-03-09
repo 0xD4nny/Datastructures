@@ -41,24 +41,31 @@ The included diagram illustrates key comparisons and optimizations explored thro
 - Hopefully, this will serve as a useful learning resource for others exploring data structures in C#
 
 
-# 🚀 Last Benchmark 14.02.25
+# 🚀 Last Benchmark 09.03.2025
 - This benchmark compares the performance of a my custom Red-Black-Tree implementation with SortedDictionary from .NET. 
 - The tests were performed with BenchmarkDotNet.
+- Ad New RBT with Iterative Methods instead of Recursives.
 ```
-| Method            | N    | Mean         | Error       | StdDev      | Median       | Gen0    | Gen1   | Allocated |
-|------------------ |----- |-------------:|------------:|------------:|-------------:|--------:|-------:|----------:|
-| RBT_Insert        | 100  |   5,797.4 ns |   112.23 ns |   246.34 ns |   5,710.5 ns |  1.1520 |      - |    4832 B |
-| SortedDict_Insert | 100  |   5,423.1 ns |   134.63 ns |   390.60 ns |   5,301.2 ns |  1.1673 |      - |    4912 B |
-| RBT_Search        | 100  |   1,191.0 ns |    18.74 ns |    17.53 ns |   1,193.2 ns |       - |      - |         - |
-| SortedDict_Search | 100  |   1,887.9 ns |    37.69 ns |    99.29 ns |   1,841.5 ns |       - |      - |         - |
-| RBT_Delete        | 100  |     115.0 ns |     3.25 ns |     9.22 ns |     112.6 ns |       - |      - |         - |
-| SortedDict_Delete | 100  |     651.3 ns |    12.87 ns |    16.74 ns |     643.9 ns |       - |      - |         - |
-| RBT_Insert        | 1000 | 174,296.3 ns | 1,810.60 ns | 2,085.09 ns | 173,741.1 ns | 11.4746 |      - |   48032 B |
-| SortedDict_Insert | 1000 | 170,632.0 ns |   792.98 ns |   662.17 ns | 170,729.4 ns | 11.4746 | 0.2441 |   48112 B |
-| RBT_Search        | 1000 |  47,946.9 ns |   958.38 ns |   896.47 ns |  47,425.9 ns |       - |      - |         - |
-| SortedDict_Search | 1000 |  70,567.3 ns | 1,228.47 ns | 3,192.95 ns |  69,425.5 ns |       - |      - |         - |
-| RBT_Delete        | 1000 |   1,022.8 ns |    20.85 ns |    57.08 ns |   1,007.2 ns |       - |      - |         - |
-| SortedDict_Delete | 1000 |   6,855.8 ns |   198.99 ns |   586.74 ns |   6,560.7 ns |       - |      - |         - |
+| Method                   | N      | Mean            | Error           | StdDev          | Median          | Gen0     | Gen1     | Allocated |
+|------------------------- |------- |----------------:|----------------:|----------------:|----------------:|---------:|---------:|----------:|
+| RecursiveRbtAdd          | 1000   |    113,899.0 ns |     2,160.13 ns |     1,914.90 ns |    113,554.6 ns |  11.4746 |        - |   48032 B |
+| IterativeRbtAdd          | 1000   |     74,137.3 ns |     1,366.83 ns |     1,278.54 ns |     74,312.0 ns |  13.3057 |   0.2441 |   56032 B |
+| SortedDictionaryAdd      | 1000   |     94,321.1 ns |     1,557.68 ns |     1,300.74 ns |     94,445.4 ns |  11.4746 |        - |   48112 B |
+| RecursiveRbtContains     | 1000   |     46,015.3 ns |       583.20 ns |       455.32 ns |     45,880.5 ns |        - |        - |         - |
+| IterativeRbtContains     | 1000   |     46,399.0 ns |       849.03 ns |     1,244.50 ns |     46,250.3 ns |        - |        - |         - |
+| SortedDictionaryContains | 1000   |     60,951.7 ns |       652.23 ns |       801.00 ns |     60,786.1 ns |        - |        - |         - |
+| RecursiveRbtRemove       | 1000   |        993.1 ns |        30.52 ns |        90.00 ns |        989.5 ns |        - |        - |         - |
+| IterativeRbtRemove       | 1000   |      1,800.7 ns |        80.87 ns |       234.61 ns |      1,683.9 ns |        - |        - |         - |
+| SortedDictionaryRemove   | 1000   |      5,758.2 ns |       109.57 ns |       223.82 ns |      5,739.0 ns |        - |        - |         - |
+| RecursiveRbtAdd          | 100000 | 33,001,022.8 ns | 1,029,692.56 ns | 3,003,661.76 ns | 32,100,833.3 ns | 777.7778 | 666.6667 | 4800076 B |
+| IterativeRbtAdd          | 100000 | 23,629,492.1 ns |   440,133.45 ns |   411,701.10 ns | 23,623,303.1 ns | 906.2500 | 750.0000 | 5600044 B |
+| SortedDictionaryAdd      | 100000 | 24,666,955.8 ns |   488,959.26 ns |   543,476.92 ns | 24,555,548.4 ns | 781.2500 | 687.5000 | 4800124 B |
+| RecursiveRbtContains     | 100000 | 32,262,498.4 ns | 2,353,487.62 ns | 6,752,597.65 ns | 28,783,804.7 ns |        - |        - |      12 B |
+| IterativeRbtContains     | 100000 | 24,046,557.8 ns |   369,573.10 ns |   288,538.37 ns | 24,010,450.0 ns |        - |        - |      12 B |
+| SortedDictionaryContains | 100000 | 25,099,944.0 ns |   233,544.62 ns |   182,336.27 ns | 25,145,332.8 ns |        - |        - |      12 B |
+| RecursiveRbtRemove       | 100000 |     85,552.2 ns |       238.84 ns |       186.47 ns |     85,594.8 ns |        - |        - |         - |
+| IterativeRbtRemove       | 100000 |    167,806.5 ns |     1,278.65 ns |     1,133.49 ns |    167,619.3 ns |        - |        - |         - |
+| SortedDictionaryRemove   | 100000 |    573,186.9 ns |    11,363.38 ns |    14,775.60 ns |    573,042.8 ns |        - |        - |         - |
 ```
 
 ## Visualization of the RedBlackTree

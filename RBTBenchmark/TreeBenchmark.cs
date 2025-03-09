@@ -1,78 +1,99 @@
-﻿namespace RBTBenchmark;
-
-using System;
-using System.Collections.Generic;
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using System.Linq;
 using Datastructures;
+
+namespace RBTBenchmark;
 
 [MemoryDiagnoser]
 public class TreeBenchmark
 {
     private List<int> _data;
-    private RedBlackTree<int, int> _rbt;
-    private SortedDictionary<int, int> _dict;
+    private RecursiveRBT<int, int> _recursiveRbt;
+    private IterativeRBT<int, int> _iterativeRbt;
+    private SortedDictionary<int, int> _sortedDict;
 
-    [Params(100, 1_000)]
+    [Params(1_000, 100_000)]
     public int N;
 
     [GlobalSetup]
     public void Setup()
     {
         _data = Enumerable.Range(1, N).OrderBy(_ => Guid.NewGuid()).ToList();
-        _rbt = new RedBlackTree<int, int>();
-        _dict = new SortedDictionary<int, int>();
+        
+        _recursiveRbt = new RecursiveRBT<int, int>();
+        _iterativeRbt = new IterativeRBT<int, int>();
+        _sortedDict = new SortedDictionary<int, int>();
 
         foreach (int item in _data)
         {
-            _rbt[item] = item;
-            _dict[item] = item;
+            _recursiveRbt.Add(item, item);
+            _iterativeRbt.Add(item, item);
+            _sortedDict.Add(item, item);
         }
+
     }
 
-
+    // --- Add ---
     [Benchmark]
-    public void RBT_Insert()
+    public void RecursiveRbtAdd()
     {
-        RedBlackTree<int, int> tree = new RedBlackTree<int, int>();
+        RecursiveRBT<int, int> tree = new RecursiveRBT<int, int>();
         foreach (int item in _data)
-            tree[item] = item;
+            tree.Add(item, item);
     }
     [Benchmark]
-    public void SortedDict_Insert()
+    public void IterativeRbtAdd()
     {
-        SortedDictionary<int, int> dict = new SortedDictionary<int, int>();
+        IterativeRBT<int, int> tree = new IterativeRBT<int, int>();
         foreach (int item in _data)
-            dict[item] = item;
-    }
-
-
-    [Benchmark]
-    public void RBT_Search()
-    {
-        foreach (int item in _data)
-            _rbt.Contains(item);
+            tree.Add(item, item);
     }
     [Benchmark]
-    public void SortedDict_Search()
+    public void SortedDictionaryAdd()
     {
+        SortedDictionary<int, int> sortedDict = new SortedDictionary<int, int>();
         foreach (int item in _data)
-            _dict.ContainsKey(item);
+            sortedDict.Add(item, item);
     }
 
-
+    // --- Contains ---
     [Benchmark]
-    public void RBT_Delete()
+    public void RecursiveRbtContains()
     {
         foreach (int item in _data)
-            _rbt.Remove(item);
+            _recursiveRbt.Contains(item);
     }
     [Benchmark]
-    public void SortedDict_Delete()
+    public void IterativeRbtContains()
     {
         foreach (int item in _data)
-            _dict.Remove(item);
+            _iterativeRbt.Contains(item);
+    }
+    [Benchmark]
+    public void SortedDictionaryContains()
+    {
+        foreach (int item in _data)
+            _sortedDict.ContainsKey(item);
+    }
+
+    // --- Remove ---
+    [Benchmark]
+    public void RecursiveRbtRemove()
+    {
+        foreach (int item in _data)
+            _recursiveRbt.Remove(item);
+    }
+    [Benchmark]
+    public void IterativeRbtRemove()
+    {
+        foreach (int item in _data)
+            _iterativeRbt.Remove(item);
+    }
+    [Benchmark]
+    public void SortedDictionaryRemove()
+    {
+        foreach (int item in _data)
+            _sortedDict.Remove(item);
     }
 
 }
@@ -83,4 +104,5 @@ class Program
     {
         var summary = BenchmarkRunner.Run<TreeBenchmark>();
     }
+
 }

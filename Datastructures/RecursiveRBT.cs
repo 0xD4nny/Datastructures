@@ -9,7 +9,7 @@ namespace Datastructures;
 /// which is safe for up to 20 recursive stack frames.<br />
 /// However, I cannot guarantee that deeper recursion will always be avoided.<br />
 /// </summary>
-public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>> where TKey : struct, IComparable<TKey>
+public class RecursiveRBT<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>> where TKey : IComparable<TKey>
 {
     private class Node(TKey key, TValue value, bool isRed)
     {
@@ -24,7 +24,6 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
 
     public int Count => _count;
     public int Height => CalculateHeight(_root);
-
     public TValue this[TKey key]
     {
         get
@@ -46,7 +45,6 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
                 node.Value = value;
         }
     }
-
 
     #region Public Methods
     public void Add(TKey key, TValue value)
@@ -397,6 +395,7 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
     }
     #endregion
 
+    #region Debuging Methods
     public bool IsValidRedBlackTree()
     {
         if (_root == null) return true;
@@ -430,6 +429,6 @@ public class RedBlackTree<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>
         pathBlackCount = leftBlack;
         return leftValid && rightValid && leftBlack == rightBlack;
     }
-
+    #endregion
 
 }

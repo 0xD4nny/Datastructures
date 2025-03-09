@@ -1,22 +1,48 @@
 ﻿using Datastructures;
+using System.Diagnostics;
 
 namespace Test;
 class Program
 {
-    private static readonly Random _random = new Random();
-
     private static readonly List<int> _numbers = new List<int>();
 
     static void Main()
     {
-        for (int i = 0; i < 31; i++)
+        Random _random = new Random();
+
+        for (int i = 0; i < 100_000; i++)
             _numbers.Add(_random.Next(0, 101));
+        
+        RecursiveRbtTest(); // this run is to make the compiler warm.
+        
+        Stopwatch sw = Stopwatch.StartNew();
 
-        //BinaryTreeTest();
-        //BinarySearchTreeTest();
-        RedBlackTreeTest();
+        //RecursiveRbt:
+        sw.Start();
+        RecursiveRbtTest();
+        sw.Stop();
+        long recursiveRbtTime = sw.ElapsedMilliseconds;
+        sw.Reset();
 
+        //IterativeRbt:
+        sw.Start();
+        IterativeRbtTest();
+        sw.Stop();
+        long iterativeRbtTime = sw.ElapsedMilliseconds;
+        sw.Reset();
+
+        // SortedDictionary:
+        sw.Start();
+        SortedDictionaryTest();
+        sw.Stop();
+        long dotNetSortedDict = sw.ElapsedMilliseconds;
+
+        //Result:
+        Console.WriteLine($"1. Recursive Rbt Test Time: {recursiveRbtTime} ms");
+        Console.WriteLine($"2. Iterative Rbt Test Time: {iterativeRbtTime} ms");
+        Console.WriteLine($"3. .NET SortedDictionary Test Time: {dotNetSortedDict}ms");
         Console.WriteLine("All Tree - Tests successfull executed.");
+
     }
 
     #region Tree tests
@@ -29,33 +55,33 @@ class Program
 
         for (int i = 0; i < _numbers.Count; i++)
         {
-            Console.WriteLine("_____Binary Tree_____");
-            Console.WriteLine($"Count: {binaryTree.Count}");
-            Console.WriteLine($"Max value: {binaryTree.Max()}");
-            Console.WriteLine($"Min value: {binaryTree.Min()}");
-            Console.WriteLine($"Calculate Hight {binaryTree.Height}");
-            binaryTree.PrintTree();
+            //Console.WriteLine("_____Binary Tree_____");
+            //Console.WriteLine($"Count: {binaryTree.Count}");
+            //Console.WriteLine($"Max value: {binaryTree.Max()}");
+            //Console.WriteLine($"Min value: {binaryTree.Min()}");
+            //Console.WriteLine($"Calculate Hight {binaryTree.Height}");
+            //binaryTree.PrintTree();
 
-            Console.Write("\nLevelOrderTraversal:\t");
-            foreach ((int, int) number in binaryTree)
-                Console.Write(number.Item1 + " ");
+            //Console.Write("\nLevelOrderTraversal:\t");
+            //foreach ((int, int) number in binaryTree)
+            //    Console.Write(number.Item1 + " ");
 
-            Console.Write("\nPreOrderTraversal:\t");
-            foreach ((int, int) number in binaryTree.PreOrderTraversal())
-                Console.Write(number.Item1 + " ");
+            //Console.Write("\nPreOrderTraversal:\t");
+            //foreach ((int, int) number in binaryTree.PreOrderTraversal())
+            //    Console.Write(number.Item1 + " ");
 
-            Console.Write("\nInOrderTraversal:\t");
-            foreach ((int, int) number in binaryTree.InOrderTraversal())
-                Console.Write(number.Item1 + " ");
+            //Console.Write("\nInOrderTraversal:\t");
+            //foreach ((int, int) number in binaryTree.InOrderTraversal())
+            //    Console.Write(number.Item1 + " ");
 
-            Console.Write("\nPostOrderTraversal:\t");
-            foreach ((int, int) number in binaryTree.PostOrderTraversal())
-                Console.Write(number.Item1 + " ");
+            //Console.Write("\nPostOrderTraversal:\t");
+            //foreach ((int, int) number in binaryTree.PostOrderTraversal())
+            //    Console.Write(number.Item1 + " ");
 
-            Console.WriteLine();
-            Console.WriteLine("Press any key to remove next.");
-            Console.ReadKey();
-            Console.Clear();
+            //Console.WriteLine();
+            //Console.WriteLine("Press any key to remove next.");
+            //Console.ReadKey();
+            //Console.Clear();
 
             binaryTree.Remove((_numbers[i], i));
         }
@@ -70,81 +96,136 @@ class Program
 
         for (int i = 0; i < _numbers.Count; i++)
         {
-            Console.WriteLine("_____Binary Search Tree_____");
-            Console.WriteLine($"Count: {binarySearchTree.Count}");
-            Console.WriteLine($"Max value: {binarySearchTree.FindMax()}");
-            Console.WriteLine($"Min value: {binarySearchTree.FindMin()}");
-            Console.WriteLine($"Calculate Hight {binarySearchTree.Height}");
-            binarySearchTree.PrintTree();
+            //Console.WriteLine("_____Binary Search Tree_____");
+            //Console.WriteLine($"Count: {binarySearchTree.Count}");
+            //Console.WriteLine($"Max value: {binarySearchTree.FindMax()}");
+            //Console.WriteLine($"Min value: {binarySearchTree.FindMin()}");
+            //Console.WriteLine($"Calculate Hight {binarySearchTree.Height}");
+            //binarySearchTree.PrintTree();
 
-            Console.Write("\nLevelOrderTraversal:\t");
-            foreach ((int, int) number in binarySearchTree)
-                Console.Write(number.Item1 + " ");
+            //Console.Write("\nLevelOrderTraversal:\t");
+            //foreach ((int, int) number in binarySearchTree)
+            //    Console.Write(number.Item1 + " ");
 
-            Console.Write("\nPreOrderTraversal:\t");
-            foreach ((int, int) number in binarySearchTree.PreOrderTraversal())
-                Console.Write(number.Item1 + " ");
+            //Console.Write("\nPreOrderTraversal:\t");
+            //foreach ((int, int) number in binarySearchTree.PreOrderTraversal())
+            //    Console.Write(number.Item1 + " ");
 
-            Console.Write("\nInOrderTraversal:\t");
-            foreach ((int, int) number in binarySearchTree.InOrderTraversal())
-                Console.Write(number.Item1 + " ");
+            //Console.Write("\nInOrderTraversal:\t");
+            //foreach ((int, int) number in binarySearchTree.InOrderTraversal())
+            //    Console.Write(number.Item1 + " ");
 
-            Console.Write("\nPostOrderTraversal:\t");
-            foreach ((int, int) number in binarySearchTree.PostOrderTraversal())
-                Console.Write(number.Item1 + " ");
+            //Console.Write("\nPostOrderTraversal:\t");
+            //foreach ((int, int) number in binarySearchTree.PostOrderTraversal())
+            //    Console.Write(number.Item1 + " ");
 
-            Console.WriteLine();
-            Console.WriteLine("Press any key to remove next.");
-            Console.ReadKey();
-            Console.Clear();
-            Console.WriteLine($"Removed node: {binarySearchTree.RemoveMin().Item1}");
+            //Console.WriteLine();
+            //Console.WriteLine("Press any key to remove next.");
+            //Console.ReadKey();
+            //Console.Clear();
+            //Console.WriteLine($"Removed node: {binarySearchTree.RemoveMin().Item1}");
+            binarySearchTree.RemoveMin();
         }
     }
-    private static void RedBlackTreeTest()
+    private static void RecursiveRbtTest()
     {
-        RedBlackTree<int, int> redBlackTree = new RedBlackTree<int, int>();
+        RecursiveRBT<int, int> recursiveRbt = new RecursiveRBT<int, int>();
 
         for (int i = 0; i < _numbers.Count; i++)
-            redBlackTree.Add(i, i);
+            recursiveRbt.Add(i, i);
+
 
         for (int i = 0; i < _numbers.Count; i++)
         {
-            Console.WriteLine("_____Red Black Tree_____");
-            Console.WriteLine($"Count: {redBlackTree.Count, 8}");
-            Console.WriteLine($"Hight: {redBlackTree.Height, 8}");
-            Console.WriteLine($"MaxValue: {redBlackTree.Max().Value, 5}");
-            Console.WriteLine($"MinValue: {redBlackTree.Min().Value, 5}");
-            Console.WriteLine();
-            redBlackTree.PrintTree();
+            //Console.WriteLine("_____Red Black Tree_____");
+            //Console.WriteLine($"Count: {redBlackTree.Count,8}");
+            //Console.WriteLine($"Hight: {redBlackTree.Height,8}");
+            //Console.WriteLine($"MaxValue: {redBlackTree.Max().Value,5}");
+            //Console.WriteLine($"MinValue: {redBlackTree.Min().Value,5}");
 
-            Console.Write("\nLevelOrderTraversal:\t");
-            foreach (var kvp in redBlackTree)
-                Console.Write(kvp.Value + " ");
+            //Console.WriteLine();
+            //redBlackTree.PrintTree();
 
-            Console.WriteLine();
+            //Console.Write("\nLevelOrderTraversal:\t");
+            //foreach (var kvp in redBlackTree)
+            //    Console.Write(kvp.Value + " ");
 
-            Console.Write("\nPreOrderTraversal:\t");
-            foreach (var kvp in redBlackTree.PreOrder())
-                Console.Write(kvp.Value + " ");
+            //Console.Write("\nPreOrderTraversal:\t");
+            //foreach (var kvp in redBlackTree.PreOrder())
+            //    Console.Write(kvp.Value + " ");
 
-            Console.WriteLine();
+            //Console.Write("\nInOrderTraversal:\t");
+            //foreach (var kvp in redBlackTree.InOrderTraversal())
+            //    Console.Write(kvp.Value + " ");
 
-            Console.Write("\nInOrderTraversal:\t");
-            foreach (var kvp in redBlackTree.InOrderTraversal())
-                Console.Write(kvp.Value + " ");
+            //Console.Write("\nPostOrderTraversal:\t");
+            //foreach (var kvp in redBlackTree.PostOrderTraversal())
+            //    Console.Write(kvp.Value + " ");
 
-            Console.WriteLine();
-
-            Console.Write("\nPostOrderTraversal:\t");
-            foreach (var kvp in redBlackTree.PostOrderTraversal())
-                Console.Write(kvp.Value + " ");
-
-
-            Console.WriteLine("\n\nPress any key to remove next.");
-            Console.ReadKey();
-            Console.Clear();
-            Console.WriteLine($"Removed node: {redBlackTree.RemoveMin().Value.Key}");
+            //Console.WriteLine("\n\nPress any key to remove next.");
+            //Console.ReadKey();
+            //Console.SetCursorPosition(0,0);
+            //Console.CursorVisible = false;
+            //Thread.Sleep(10);
+            //Console.WriteLine($"Removed node: {redBlackTree.RemoveMin().Value.Value}");
+            recursiveRbt.RemoveMin();
         }
+    }
+    private static void IterativeRbtTest()
+    {
+        IterativeRBT<int, int> iterativeRbt = new IterativeRBT<int, int>();
+
+        for (int i = 0; i < _numbers.Count; i++)
+            iterativeRbt.Add(i, i);
+
+
+        for (int i = 0; i < _numbers.Count; i++)
+        {
+            //Console.WriteLine("_____Red Black Tree_____");
+            //Console.WriteLine($"Count: {redBlackTree.Count,8}");
+            //Console.WriteLine($"Hight: {redBlackTree.Height,8}");
+            //Console.WriteLine($"MaxValue: {redBlackTree.Max().Value,5}");
+            //Console.WriteLine($"MinValue: {redBlackTree.Min().Value,5}");
+
+            //Console.WriteLine();
+            //redBlackTree.PrintTree();
+
+            //Console.Write("\nLevelOrderTraversal:\t");
+            //foreach (var kvp in redBlackTree)
+            //    Console.Write(kvp.Value + " ");
+
+            //Console.Write("\nPreOrderTraversal:\t");
+            //foreach (var kvp in redBlackTree.PreOrder())
+            //    Console.Write(kvp.Value + " ");
+
+            //Console.Write("\nInOrderTraversal:\t");
+            //foreach (var kvp in redBlackTree.InOrderTraversal())
+            //    Console.Write(kvp.Value + " ");
+
+            //Console.Write("\nPostOrderTraversal:\t");
+            //foreach (var kvp in redBlackTree.PostOrderTraversal())
+            //    Console.Write(kvp.Value + " ");
+
+            //Console.WriteLine("\n\nPress any key to remove next.");
+            //Console.ReadKey();
+            //Console.Clear();
+            //Console.SetCursorPosition(0, 0);
+            //Console.CursorVisible = false;
+            //Thread.Sleep(10);
+            //Console.WriteLine($"Removed node: {redBlackTree.RemoveMin().Value.Value}");
+            iterativeRbt.RemoveMin();
+        }
+    }
+    private static void SortedDictionaryTest()
+    {
+        SortedDictionary<int, int> sortedDict = new SortedDictionary<int, int>();
+
+        for (int i = 0; i < _numbers.Count; i++)
+            sortedDict.Add(i, i);
+
+        for (int i = _numbers.Count; i > 0; i--)
+            sortedDict.Remove(i);
+
     }
     #endregion
 
@@ -154,7 +235,7 @@ class Program
         CustomLinkedList<(int, int)> linkedList = new CustomLinkedList<(int, int)>();
 
         for (int i = 0; i < 50; i++)
-            linkedList.AddFirst((_numbers[i],i));
+            linkedList.AddFirst((_numbers[i], i));
 
         Console.WriteLine("UNSORTED Processes: " + "\n");
         foreach ((int, int) numbers in linkedList)
